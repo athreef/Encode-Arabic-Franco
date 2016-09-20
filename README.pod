@@ -1,3 +1,5 @@
+=encoding utf8
+
 =head1 NAME
 
 Encode::Arabic::Franco - Turns Franco-/Chat-Arabic into actual Arabic letters
