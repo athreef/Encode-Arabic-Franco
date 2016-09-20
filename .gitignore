@@ -1,1 +1,5 @@
 .build/
+*.sw*
+.DS_Store
+Encode-Arabic-Franco-*/
+Encode-Arabic-Franco-*.tar.gz
