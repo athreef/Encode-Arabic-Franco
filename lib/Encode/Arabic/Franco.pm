@@ -8,6 +8,12 @@ __PACKAGE__->Define(qw(Franco-Arabic Arabizy));
 
 # ABSTRACT: Does transliteration from chat Arabic
 
+sub import { # imports Encode
+    require Encode;
+    push @Encode::ISA, 'Exporter' unless Encode->can('export_to_level');
+    Encode->export_to_level(1, @_);
+}
+
 sub decode($$;$){
     my ($obj, $str, $chk) = @_;
 
@@ -60,7 +66,6 @@ Encode::Arabic::Franco - Turns Franco-/Chat-Arabic into actual Arabic letters
 
 =head1 SYNOPSIS
 
-    use Encode;
     use Encode::Arabic::Franco;
 
     while ($line = <>) {
@@ -68,7 +73,7 @@ Encode::Arabic::Franco - Turns Franco-/Chat-Arabic into actual Arabic letters
     }
 
     # oneliner
-    $ perl -MEncode -MEncode::Arabic::Franco -pe '$_ = encode "arabizy", $_'
+    $ perl -MEncode::Arabic::Franco -pe '$_ = encode "arabizy", $_'
 
 =head1 DESCRIPTION
 

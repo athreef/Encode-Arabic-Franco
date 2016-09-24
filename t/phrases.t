@@ -1,5 +1,4 @@
 use Test::More;
-use Encode;
 use utf8;
 
 BEGIN {

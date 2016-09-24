@@ -1,5 +1,4 @@
 use Test::More tests => 3;
-use Encode;
 use utf8;
 
 BEGIN {
