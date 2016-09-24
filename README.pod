@@ -7,7 +7,6 @@ Encode::Arabic::Franco - Turns Franco-/Chat-Arabic into actual Arabic letters
 
 =head1 SYNOPSIS
 
-    use Encode;
     use Encode::Arabic::Franco;
 
     while ($line = <>) {
@@ -15,7 +14,7 @@ Encode::Arabic::Franco - Turns Franco-/Chat-Arabic into actual Arabic letters
     }
 
     # oneliner
-    $ perl -MEncode -MEncode::Arabic::Franco -pe '$_ = encode "arabizy", $_'
+    $ perl -MEncode::Arabic::Franco -pe '$_ = encode "arabizy", $_'
 
 =head1 DESCRIPTION
 
