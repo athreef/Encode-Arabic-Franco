@@ -15,6 +15,8 @@ sub decode($$;$){
     $str =~ s/(2|\b)e/إ/g;
     $str =~ s/(2|\b)[ou]/أُ/g;
     $str =~ s/2|\ba/أ/g;
+    $str =~ s/[aoyei]2\b/ء/g;
+    $str =~ s/o2/ؤ/g;
 
     $str =~ s/3'/غ/g;
     $str =~ s/7'/خ/g;
@@ -22,6 +24,13 @@ sub decode($$;$){
     $str =~ s/kh/خ/g;
     $str =~ s/gh/غ/g;
     $str =~ s/sh/ش/g;
+    $str =~ s/ah\b/ة/g;
+    $str =~ s/ss/ص/g;
+    $str =~ s/th/ث/g;
+    $str =~ s/zz|6'/ظ/g;
+
+
+    $str =~ s/'//g;
 
     $str =~ tr
         { 3 4 5 6 7 8 9 } 
@@ -32,8 +41,8 @@ sub decode($$;$){
         { ا ب _ د ي ف ج ه ي ج ك ل م ن و پ ق ر س ت و ڤ و _ ي ز };
     
     $str =~ tr
-        { , ; ? }
-        { ، ؛ ؟ };
+        { , ; ? - }
+        { ، ؛ ؟ ـ };
 
     $_[1] = '' if $chk;
     return $str;
