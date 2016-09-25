@@ -47,8 +47,8 @@ sub decode($$;$){
         { ا ب _ د ي ف ج ه ي ج ك ل م ن و پ ق ر س ت و ڤ و _ ي ز };
     
     $str =~ tr
-        { , ; ? - }
-        { ، ؛ ؟ ـ };
+        { , ; ? }
+        { ، ؛ ؟ };
 
     $_[1] = '' if $chk;
     return $str;
@@ -89,7 +89,7 @@ Currently nothing more than a chain of C<tr>icks à la:
     $str =~ s/3'/غ/g;
     $str =~ s/7'/خ/g;
 
-=head1 Git repo
+=head1 GIT REPOSITORY
 
 L<http://github.com/a3f/Encode-Arabic-Franco>
 
@@ -99,9 +99,7 @@ L<Encode|Encode>, L<Encode::Encoding|Encode::Encoding>, L<Encode::Arabic|Encode:
 
 Wikipedia article on Franco Arabic  L<https://en.wikipedia.org/wiki/Arabic_chat_alphabet>
 
-Buckwalter Arabic Morphological Analyzer
-    L<http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2002L49>
-(Might be employed in future)
+Buckwalter Arabic Morphological Analyzer L<http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2002L49> (Might be employed in future)
 
 
 =head1 AUTHOR
