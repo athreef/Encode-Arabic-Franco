@@ -69,11 +69,11 @@ Encode::Arabic::Franco - Turns Franco-/Chat-Arabic into actual Arabic letters
     use Encode::Arabic::Franco;
 
     while ($line = <>) {
-        print encode 'franco-arabic', $line;   # 'Franco-Arabic' alias 'Arabizy'
+        print decode 'franco-arabic', $line;   # 'Franco-Arabic' alias 'Arabizy'
     }
 
     # oneliner
-    $ perl -MEncode::Arabic::Franco -pe '$_ = encode "arabizy", $_'
+    $ perl -CS -MEncode::Arabic::Franco -pe '$_ = decode "arabizy", $_'
 
 =head1 DESCRIPTION
 
