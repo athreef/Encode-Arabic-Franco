@@ -7,7 +7,7 @@ use utf8;
 __PACKAGE__->Define(qw(Franco-Arabic Arabizy));
 
 # ABSTRACT: Does transliteration from chat Arabic
-our $VERSION = '0.004';
+# VERSION
 
 sub import { # imports Encode
     require Encode;
@@ -33,6 +33,7 @@ sub decode($$;$){
     $str =~ s/sh/ش/g;
     $str =~ s/ah\b/ة/g;
     $str =~ s/ss/ص/g;
+    $str =~ s/ee/ي/g;
     $str =~ s/th/ث/g;
     $str =~ s/zz|6'/ظ/g;
 
@@ -45,11 +46,13 @@ sub decode($$;$){
 
     $str =~ tr
         { a b c d e f g h i j k l m n o p q r s t u v w x y z }
-        { ا ب _ د ي ف ج ه ي ج ك ل م ن و پ ق ر س ت و ڤ و _ ي ز };
+        { ا ب c د e ف ج ه ي ج ك ل م ن و پ ق ر س ت و ڤ و x ي ز };
     
     $str =~ tr
         { , ; ? }
         { ، ؛ ؟ };
+
+    $str =~ s/\w//ga; # strip untranslated characters
 
     $_[1] = '' if $chk;
     return $str;
