@@ -7,6 +7,7 @@ use utf8;
 __PACKAGE__->Define(qw(Franco-Arabic Arabizy));
 
 # ABSTRACT: Does transliteration from chat Arabic
+our $VERSION = '0.004';
 
 sub import { # imports Encode
     require Encode;
