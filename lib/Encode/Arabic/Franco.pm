@@ -82,7 +82,7 @@ Franco-Arabic, aka Chat Arabic, Arabizy, is a transliteration of Arabic, commonl
 Franco-Arabic is not standardized. This module is far from complete.
 
 
-=head2 IMPLEMENTATION
+=head1 IMPLEMENTATION
 
 Currently nothing more than a chain of C<tr>icks à la:
 
