@@ -3,6 +3,7 @@ use parent qw(Encode::Encoding);
 use strict;
 use warnings;
 use utf8;
+use Lingua::AR::Vowels;
 
 __PACKAGE__->Define(qw(Franco-Arabic Arabizy));
 
@@ -20,10 +21,11 @@ sub decode($$;$){
 
     $str =~ s/\b[ae]l/ال/g;
     $str =~ s/(2|\b)e/إ/g;
-    $str =~ s/(2|\b)[ou]/أُ/g;
-    $str =~ s/2|\ba/أ/g;
-    $str =~ s/[aoyei]2\b/ء/g;
     $str =~ s/o2/ؤ/g;
+    $str =~ s/^2?[ou]/أُ/g;
+    $str =~ s/2a/أ/g;
+    $str =~ s/(?![aoyei])2/ء/g;
+    $str =~ s/2|\ba/أ/g;
 
     $str =~ s/3'/غ/g;
     $str =~ s/7'/خ/g;
@@ -35,6 +37,7 @@ sub decode($$;$){
     $str =~ s/ss/ص/g;
     $str =~ s/ee/ي/g;
     $str =~ s/th/ث/g;
+    $str =~ s/oo/و/g;
     $str =~ s/zz|6'/ظ/g;
 
 
@@ -95,7 +98,7 @@ Currently nothing more than a chain of C<tr>icks à la:
 
 =head1 GIT REPOSITORY
 
-L<http://github.com/a3f/Encode-Arabic-Franco>
+L<http://github.com/athreef/Encode-Arabic-Franco>
 
 =head1 SEE ALSO
 

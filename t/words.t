@@ -8,14 +8,15 @@ BEGIN {
 my %samples = (
     "alsma" => 'السما',
     "el5r6om" => 'الخرطوم',
-    "3'rna6" => 'غرناط',
-    #"2esrar" => 'إصرار',
+    "3'rna6ah" => 'غرناطة',
+    "3een" => 'عين',
+    "2essrar" => 'إصرار',
     #"2owla" => 'أولى',
-    #"shawrma" => 'شاورمة',
+    "shawrmah" => 'شاورمة',
 );
 
 while (my ($franco, $arabic) = each %samples) {
     my $translit = decode 'franco-arabic', $franco;
-    is $arabic, $translit, "decoding $franco";
+    is $translit, $arabic, "decoding $franco";
 }
 done_testing;

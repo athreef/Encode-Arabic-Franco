@@ -8,7 +8,7 @@ BEGIN {
 my %samples = (
 #    'wlqd zkrtk wlrma7 nwahl mny' => 'ولقد ذكرتك والرماح نواهل مني',
     'wsyf elhnd tq6r mn dmy' => 'وسيف الهند تقطر من دمي',
-    'fwddt tqbyl elsyof l2nha' => 'فوددت تقبيل السيوف لأنها',
+    'fwddt tqbyl elsyof le2anha' => 'فوددت تقبيل السيوف لأنها',
 #    'lm3t kbarq th3\'rk elmotbsm' => 'لمعت كبارق ثغرك المتبسم',
 
 #    'wlaqad zakrtok walrema7 nwahel meny' => 'ولقد ذكرتك والرماح نواهل مني',
@@ -19,6 +19,6 @@ my %samples = (
 
 while (my ($franco, $arabic) = each %samples) {
     my $translit = decode 'franco-arabic', $franco;
-    is $arabic, $translit, "decoding $franco";
+    is $translit, $arabic, "decoding $franco";
 }
 done_testing;

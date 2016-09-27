@@ -34,7 +34,7 @@ Currently nothing more than a chain of C<tr>icks à la:
 
 =head1 GIT REPOSITORY
 
-L<http://github.com/a3f/Encode-Arabic-Franco>
+L<http://github.com/athreef/Encode-Arabic-Franco>
 
 =head1 SEE ALSO
 
