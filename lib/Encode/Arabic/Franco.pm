@@ -3,7 +3,11 @@ use parent qw(Encode::Encoding);
 use strict;
 use warnings;
 use utf8;
-use Lingua::AR::Vowels;
+use Lingua::AR::Tashkeel;
+use Unicode::Normalize;
+use charnames ':full';
+
+use Carp;
 
 __PACKAGE__->Define(qw(Franco-Arabic Arabizy));
 
@@ -17,28 +21,64 @@ sub import { # imports Encode
 }
 
 sub decode($$;$){
-    my ($obj, $str, $chk) = @_;
+    my ($obj, $orig, $chk) = @_;
 
-    $str =~ s/\b[ae]l/ال/g;
-    $str =~ s/(2|\b)e/إ/g;
-    $str =~ s/o2/ؤ/g;
-    $str =~ s/^2?[ou]/أُ/g;
-    $str =~ s/2a/أ/g;
-    $str =~ s/(?![aoyei])2/ء/g;
-    $str =~ s/2|\ba/أ/g;
+    my $str = NFC $orig;
 
+    # Alefs
+    $str =~ s/\b[ae]l(?!e)(?=..)/ال\N{ARABIC SUKUN}/g;
+    $str =~ s/(2|\b)e(?!e)/إ\N{ARABIC KASRA}/g;
+    $str =~ s/e2a(?=h?\b)/\N{ARABIC KASRA}ئ\N{ARABIC FATHA}a/g;
+    $str =~ s/e2(?=.\b)/\N{ARABIC KASRA}ئ\N{ARABIC SUKUN}/g;
+    $str =~ s/\B2(?=e)\B/ئ\N{ARABIC KASRA}/g;
+    $str =~ s/a2a(?=.\b)/ائ\N{ARABIC FATHA}/g;
+    $str =~ s/a2e(?=.\b)/ائ\N{ARABIC KASRA}/g;
+    $str =~ s/a2[ou](?=.\b)/ائ\N{ARABIC DAMMA}/g;
+    #$str =~ s/a2\B/\N{ARABIC FATHA}أ/g;
+    $str =~ s/o2o/ؤ\N{ARABIC DAMMA}/g;
+    $str =~ s/o2/ؤ\N{ARABIC SUKUN}/g;
+    $str =~ s/\b2?[ou]/أ\N{ARABIC DAMMA}/g;
+    $str =~ s/\b2a/آ/g;
+    $str =~ s/\ba|2a|\b2/أ\N{ARABIC FATHA}/g;
+    $str =~ s/([^aoyei])2/$1ء/g;
+
+    # Digraphs
     $str =~ s/3'/غ/g;
     $str =~ s/7'/خ/g;
-
     $str =~ s/kh/خ/g;
     $str =~ s/gh/غ/g;
     $str =~ s/sh/ش/g;
     $str =~ s/ah\b/ة/g;
     $str =~ s/ss/ص/g;
-    $str =~ s/ee/ي/g;
+    $str =~ s/ee/\N{ARABIC KASRA}ي/g;
     $str =~ s/th/ث/g;
-    $str =~ s/oo/و/g;
+    $str =~ s/oo/\N{ARABIC DAMMA}و/g;
     $str =~ s/zz|6'/ظ/g;
+
+    # Vowelize
+    #$str =~ s/aأ|[aا]2/ائ\N{ARABIC FATHA}/g;
+    $str =~ s/2\b/ء/g;
+    $str =~ s/yأ/يئ/g;
+    #print $str if $orig =~ /
+    $str =~ s/(?=أ|)h\b/ة/g;
+    $str =~ s/ءo|2و|ء(?=\N{ARABIC DAMMA}و)/ؤ/g;
+    $str =~ s/aأ|[aا]2/\N{ARABIC FATHA}أ/g;
+    $str =~ s/(?<=ائ\N{ARABIC FATHA})a//g;
+    $str =~ s/e/\N{ARABIC KASRA}/g;
+    $str =~ s/aإ/ائ\N{ARABIC KASRA}/g;
+    $str =~ s/aإ/ائ\N{ARABIC KASRA}/g;
+    #return $str if $orig =~ /22emah/;
+    $str =~ s/(?<=أ\N{ARABIC FATHA})إ/ئ/g;
+
+
+    # Fix Alefs
+    $str =~ s/أإ/أئ\N{ARABIC KASRA}/g;
+    #$str =~ s/(?=.)ائ(..)/أ$1/g;
+    #$str =~ s/(?!a)ء/ئ/g;
+    $str =~ s/ئ(?=\N{ARABIC DAMMA})/ؤ/g;
+    $str =~ s/(?=ئَ)a//g;
+    #$str =~ s/\b(.)ئ(..)\b/$1أ$2/g;
+    #return $str if $orig =~ /ma2mn/;
 
 
     $str =~ s/'//g;
@@ -55,7 +95,9 @@ sub decode($$;$){
         { , ; ? }
         { ، ؛ ؟ };
 
-    $str =~ s/\w//ga; # strip untranslated characters
+    #$str =~ s/\w//ga; # strip untranslated characters
+
+    $str = Lingua::AR::Tashkeel->strip($str);
 
     $_[1] = '' if $chk;
     return $str;
