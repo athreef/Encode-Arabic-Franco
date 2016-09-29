@@ -97,7 +97,7 @@ sub decode($$;$){
 
     #$str =~ s/\w//ga; # strip untranslated characters
 
-    $str = Lingua::AR::Tashkeel->strip($str);
+    $str = Lingua::AR::Tashkeel->prune($str);
 
     $_[1] = '' if $chk;
     return $str;
