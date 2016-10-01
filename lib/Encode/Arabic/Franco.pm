@@ -3,7 +3,7 @@ use parent qw(Encode::Encoding);
 use strict;
 use warnings;
 use utf8;
-use Lingua::AR::Tashkeel;
+use Lingua::AR::Tashkeel v0.004;
 use Unicode::Normalize;
 use charnames ':full';
 
@@ -97,7 +97,7 @@ sub decode($$;$){
 
     #$str =~ s/\w//ga; # strip untranslated characters
 
-    $str = Lingua::AR::Tashkeel->prune($str);
+    $str = Lingua::AR::Tashkeel::prune($str);
 
     $_[1] = '' if $chk;
     return $str;
